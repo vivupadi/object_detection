@@ -3,8 +3,7 @@ import tempfile
 import matplotlib as plt
 from PIL import Image, ImageOps, ImageDraw, ImageColor, ImageFont
 import numpy as np
-import urllib.request
-from urllib import urlopen
+from urllib.request import urlopen
 from io import BytesIO
 
 def display_image(image):

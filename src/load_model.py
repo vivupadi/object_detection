@@ -1,17 +1,44 @@
 import torch
+import hub
+#import tensorflow_hub as hub
+import time
 import tensorflow as tf
 
 from preprocess import *
 
 
-model = torch.hub.load('pytorch/vision:v0.10.0', 'deeplabv3_mobilenet_v3_large', pretrained=True)
-model.eval()
+module_handle = "https://tfhub.dev/google/faster_rcnn/openimages_v4/ssd+mobilenet_v2/1"
 
-filename = "C:\\Users\\Vivupadi\\Downloads\\PXL_20250802_072807827.mp4"
+detector = hub.load(module_handle).signatures['default']
+
+# By Heiko Gorski, Source: https://commons.wikimedia.org/wiki/File:Naxos_Taverna.jpg
+image_url = "https://upload.wikimedia.org/wikipedia/commons/6/60/Naxos_Taverna.jpg" 
+downloaded_image_path = download_and_resize_image(image_url, 1280, 856, True)
 
 
-#output_predictions = preprocess_image(filename, model)
-output_predictions = preprocess_video(filename, model)
+def load_img(path):
+  img = tf.io.read_file(path)
+  img = tf.image.decode_jpeg(img, channels=3)
+  return img
+
+def run_detector(detector, path):
+  img = load_img(path)
+
+  converted_img  = tf.image.convert_image_dtype(img, tf.float32)[tf.newaxis, ...]
+  start_time = time.time()
+  result = detector(converted_img)
+  end_time = time.time()
+
+  result = {key:value.numpy() for key,value in result.items()}
+
+  print("Found %d objects." % len(result["detection_scores"]))
+  print("Inference time: ", end_time-start_time)
+
+  image_with_boxes = draw_boxes(
+      img.numpy(), result["detection_boxes"],
+      result["detection_class_entities"], result["detection_scores"])
+
+  display_image(image_with_boxes)
 
 
-mask_image(filename, output_predictions)
+run_detector(detector, downloaded_image_path)
