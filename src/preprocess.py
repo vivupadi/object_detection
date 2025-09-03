@@ -1,6 +1,6 @@
 #Preprocessing for object detection
 import tempfile
-import matplotlib as plt
+import matplotlib.pyplot as plt
 from PIL import Image, ImageOps, ImageDraw, ImageColor, ImageFont
 import numpy as np
 from urllib.request import urlopen

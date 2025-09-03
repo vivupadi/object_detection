@@ -1,13 +1,13 @@
 import torch
-import hub
-#import tensorflow_hub as hub
+#import hub
+import tensorflow_hub as hub
 import time
 import tensorflow as tf
 
 from preprocess import *
 
 
-module_handle = "https://tfhub.dev/google/faster_rcnn/openimages_v4/ssd+mobilenet_v2/1"
+module_handle = "https://tfhub.dev/tensorflow/ssd_mobilenet_v2/2"
 
 detector = hub.load(module_handle).signatures['default']
 
