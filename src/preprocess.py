@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from PIL import Image, ImageOps, ImageDraw, ImageColor, ImageFont
 import numpy as np
 from urllib.request import urlopen
+import requests
 from io import BytesIO
 
 def display_image(image):
@@ -15,8 +16,9 @@ def display_image(image):
 def download_and_resize_image(url, new_width=256, new_height=256,
                               display=False):
   _, filename = tempfile.mkstemp(suffix=".jpg")
-  response = urlopen(url)
-  image_data = response.read()
+  response = requests.get(url, stream = True)
+  image_data = response.content
+  breakpoint()
   image_data = BytesIO(image_data)
   pil_image = Image.open(image_data)
   pil_image = ImageOps.fit(pil_image, (new_width, new_height), Image.LANCZOS)
