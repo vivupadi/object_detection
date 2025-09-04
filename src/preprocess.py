@@ -1,6 +1,7 @@
 #Preprocessing for object detection
 import tempfile
 import matplotlib.pyplot as plt
+import cv2
 from PIL import Image, ImageOps, ImageDraw, ImageColor, ImageFont
 import numpy as np
 from urllib.request import urlopen
@@ -12,6 +13,13 @@ def display_image(image):
   plt.grid(False)
   plt.imshow(image)
   plt.show()
+
+
+def display_video_object(image, window_name="Detection"):
+    cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
+    cv2.setWindowProperty(window_name, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+    cv2.imshow(window_name, image )
+    return True
 
 
 def download_and_resize_image(url, new_width=256, new_height=256, display=False):

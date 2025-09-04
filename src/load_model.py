@@ -8,17 +8,59 @@ import tensorflow as tf
 
 from preprocess import *
 
+#For video based object detection
+filename = "C:\\Users\\Vivupadi\\Downloads\\PXL_20250802_072807827.mp4"
 
+
+#For image based object detection
+#sample image
+#downloaded_image_path = "C:\\Users\\Vivupadi\\Downloads\\PXL_20250603_034803966.jpg"
+#downloaded_image_path = download_and_resize_image(downloaded_image_path, 1380, 950, True)
+
+
+#Load model
 module_handle = "https://tfhub.dev/tensorflow/ssd_mobilenet_v2/2"
 
 detector = hub.load(module_handle).signatures['serving_default']
 
-# By Heiko Gorski, Source: https://commons.wikimedia.org/wiki/File:Naxos_Taverna.jpg
-#image_url = "https://upload.wikimedia.org/wikipedia/commons/6/60/Naxos_Taverna.jpg" 
-#image_url = "https://upload.wikimedia.org/wikipedia/commons/9/99/Golden_Retriever_Carlos_%2810560990993%29.jpg"
-downloaded_image_path = "C:\\Users\\Vivupadi\\Downloads\\PXL_20250603_034803966.jpg"
-#downloaded_image_path = download_and_resize_image(image_url, 1280, 856, True)
-downloaded_image_path = download_and_resize_image(downloaded_image_path, 1380, 950, True)
+
+#Function to handle video input
+def preprocess_video(filename):
+    video = cv2.VideoCapture(filename)
+
+    while video.isOpened():
+        ret, fFrame = video.read()
+        if not ret:
+            break
+        
+        img_rgb = cv2.cvtColor(fFrame, cv2.COLOR_BGR2RGB)
+
+        # Expand dims to make it (1, H, W, 3)
+        input_tensor = tf.expand_dims(img_rgb, axis=0)
+
+        # Make sure it's uint8
+        converted_img = tf.cast(input_tensor, tf.uint8)
+
+        result = detector(converted_img)
+
+        result = {key:value.numpy() for key,value in result.items()}
+
+        boxes = np.array(result["detection_boxes"][0])  # shape: [num_detections, 4]
+        classes = np.array(result["detection_classes"][0]).astype(int)  # shape: [num_detections]
+        scores = np.array(result["detection_scores"][0])  # shape: [num_detections]
+
+        #breakpoint()
+        image_with_boxes = draw_boxes(fFrame, boxes, classes, scores, label_map = coco_labels)
+
+        #display_image(image_with_boxes)
+        display_video_object(image_with_boxes)
+
+        # Press Q to quit
+        if cv2.waitKey(1) & 0xFF == ord("q"):
+            break
+    video.release()
+    cv2.destroyAllWindows()
+
 
 
 def load_img(path):
@@ -67,4 +109,9 @@ def run_detector(detector, path):
 
 coco_labels= load_labels('coco_label.txt')
 
-run_detector(detector, downloaded_image_path)
+
+#To detect Images
+#run_detector(detector, downloaded_image_path)
+
+#To detect objects in videos
+preprocess_video(filename)
