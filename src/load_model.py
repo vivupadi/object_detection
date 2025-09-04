@@ -25,6 +25,11 @@ def load_img(path):
     img = tf.image.decode_jpeg(img, channels=3)
     return img
 
+def load_labels(path = 'coco_label.txt'):
+    with open(path, 'r') as f:
+        label = f.read().splitlines()
+    return label
+
 def run_detector(detector, path):
     img = load_img(path)
 
@@ -50,18 +55,17 @@ def run_detector(detector, path):
     print("Found %d objects." % len(result["detection_scores"]))
     print("Inference time: ", end_time-start_time)
 
-    breakpoint()
     boxes = np.array(result["detection_boxes"][0])  # shape: [num_detections, 4]
     classes = np.array(result["detection_classes"][0]).astype(int)  # shape: [num_detections]
     scores = np.array(result["detection_scores"][0])  # shape: [num_detections]
 
-    image_with_boxes = draw_boxes(
-        img, boxes,
-        classes, scores)
+    #breakpoint()
+    image_with_boxes = draw_boxes(img, boxes, classes, scores, label_map = coco_labels)
     
     breakpoint()
 
     display_image(image_with_boxes)
 
+coco_labels= load_labels('coco_label.txt')
 
 run_detector(detector, downloaded_image_path)
