@@ -8,7 +8,7 @@ import requests
 from io import BytesIO
 
 def display_image(image):
-  fig = plt.figure(figsize=(20, 15))
+  fig = plt.figure(figsize=(15, 10))
   plt.grid(False)
   plt.imshow(image)
   plt.show()
@@ -21,6 +21,21 @@ def download_and_resize_image(url, new_width=256, new_height=256, display=False)
   breakpoint()
   image_data = BytesIO(image_data)
   pil_image = Image.open(image_data)
+  pil_image = ImageOps.fit(pil_image, (new_width, new_height), Image.LANCZOS)
+  pil_image_rgb = pil_image.convert("RGB")
+  pil_image_rgb.save(filename, format="JPEG", quality=90)
+  print("Image downloaded to %s." % filename)
+  if display:
+    display_image(pil_image)
+  return filename
+
+def download_and_resize_image(img, new_width=256, new_height=256, display=False):
+  _, filename = tempfile.mkstemp(suffix=".jpg")
+  #response = requests.get(url, stream = True)
+  #image_data = response.content
+  #breakpoint()
+  #image_data = BytesIO(img)
+  pil_image = Image.open(img)
   pil_image = ImageOps.fit(pil_image, (new_width, new_height), Image.LANCZOS)
   pil_image_rgb = pil_image.convert("RGB")
   pil_image_rgb.save(filename, format="JPEG", quality=90)
@@ -67,15 +82,16 @@ def draw_bounding_box_on_image(image, ymin, xmin, ymax, xmax, color, font, thick
     text_bottom -= text_height - 2 * margin
 
 
-def draw_boxes(image, boxes, class_names, scores, max_boxes=10, min_score=0.1, label_map=None):
+def draw_boxes(image, boxes, class_names, scores, max_boxes=10, min_score=0.5, label_map=None):
     """Overlay labeled boxes on an image with formatted scores and label names."""
     colors = list(ImageColor.colormap.values())
         
     try:
-        font = ImageFont.truetype("/usr/share/fonts/truetype/liberation/LiberationSansNarrow-Regular.ttf", 25)
+        font = ImageFont.truetype("arial.ttf", 45)
     except IOError:
         print("Font not found, using default font.")
-        font = ImageFont.load_default()
+        font = ImageFont.load_default(size=45)
+    
 
     #breakpoint()
     for i in range(min(boxes.shape[0], max_boxes)):

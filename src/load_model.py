@@ -15,9 +15,10 @@ detector = hub.load(module_handle).signatures['serving_default']
 
 # By Heiko Gorski, Source: https://commons.wikimedia.org/wiki/File:Naxos_Taverna.jpg
 #image_url = "https://upload.wikimedia.org/wikipedia/commons/6/60/Naxos_Taverna.jpg" 
-image_url = "https://upload.wikimedia.org/wikipedia/commons/9/99/Golden_Retriever_Carlos_%2810560990993%29.jpg"
-downloaded_image_path = "C:\\Users\\Vivupadi\\Downloads\\_DSC8706.JPG"
+#image_url = "https://upload.wikimedia.org/wikipedia/commons/9/99/Golden_Retriever_Carlos_%2810560990993%29.jpg"
+downloaded_image_path = "C:\\Users\\Vivupadi\\Downloads\\PXL_20250603_034803966.jpg"
 #downloaded_image_path = download_and_resize_image(image_url, 1280, 856, True)
+downloaded_image_path = download_and_resize_image(downloaded_image_path, 1380, 950, True)
 
 
 def load_img(path):
@@ -61,8 +62,6 @@ def run_detector(detector, path):
 
     #breakpoint()
     image_with_boxes = draw_boxes(img, boxes, classes, scores, label_map = coco_labels)
-    
-    breakpoint()
 
     display_image(image_with_boxes)
 
