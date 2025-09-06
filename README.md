@@ -13,7 +13,7 @@ A realtime frame-by-frame object detection on user-given video input.
 
 ### Object detection on Image
 ![til](https://github.com/vivupadi/object_detection/blob/main/Data/obj_detect.jpg)
-
+** Real Life scenario. Model needs to be tuned further. 
 
 
 ## Quantization
