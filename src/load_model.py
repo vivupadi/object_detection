@@ -1,10 +1,11 @@
 import torch
 #import hub
+import tensorflow as tf
 import tensorflow_hub as hub
 
 import cv2
 import time
-import tensorflow as tf
+
 
 from preprocess import *
 
@@ -15,15 +16,18 @@ filename = "C:\\Users\\Vivupadi\\Downloads\\PXL_20250802_072807827.mp4"
 
 #Input For image based object detection
 """comment out while working with object detection on video"""
-downloaded_image_path = "C:\\Users\\Vivupadi\\Downloads\\PXL_20250603_034803966.jpg"
-downloaded_image_path = download_and_resize_image(downloaded_image_path, 1380, 950, True)
+#downloaded_image_path = "C:\\Users\\Vivupadi\\Downloads\\PXL_20250603_034803966.jpg"
+#downloaded_image_path = download_and_resize_image(downloaded_image_path, 1380, 950, True)
 ##########
 
 
 
 #Load model
-module_handle = "https://tfhub.dev/tensorflow/ssd_mobilenet_v2/2"
-detector = hub.load(module_handle).signatures['serving_default']
+#module_handle = "https://tfhub.dev/tensorflow/ssd_mobilenet_v2/2"
+#detector = hub.load(module_handle).signatures['serving_default']
+
+module_handle = "https://tfhub.dev/tensorflow/ssd_mobilenet_v2/fpnlite_320x320/1"
+detector = hub.load(module_handle)
 #########
 
 
@@ -55,7 +59,7 @@ def run_detector(detector, path):
     converted_img = tf.cast(input_tensor, tf.uint8)
 
     result = detector(converted_img)
-    #breakpoint()
+    breakpoint()
     end_time = time.time()
 
     result = {key:value.numpy() for key,value in result.items()}
@@ -113,7 +117,7 @@ coco_labels= load_labels('coco_label.txt')
 
 
 #To detect Images(comment out while working with object detection on video)
-run_detector(detector, downloaded_image_path)
+#run_detector(detector, downloaded_image_path)
 
 #To detect objects in videos (comment out while working with object detection on image)
-#preprocess_video_and_run_detector(filename)
+preprocess_video_and_run_detector(filename)

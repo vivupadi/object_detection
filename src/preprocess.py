@@ -76,10 +76,10 @@ def draw_boxes(image, boxes, class_names, scores, max_boxes=10, min_score=0.55, 
     colors = list(ImageColor.colormap.values())
         
     try:
-        font = ImageFont.truetype("arial.ttf", 15)
+        font = ImageFont.truetype("arial.ttf", 45)
     except IOError:
         print("Font not found, using default font.")
-        font = ImageFont.load_default(size=15)
+        font = ImageFont.load_default(size=45)
     
 
     #breakpoint()
