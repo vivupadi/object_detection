@@ -4,6 +4,8 @@ A realtime frame-by-frame object detection on user-given video input.
 
 ## Model Used
 
+Using a small and fast model: ssd_mobilenet_v2
+
 
 ## Inference on CPU
 
@@ -15,6 +17,7 @@ A realtime frame-by-frame object detection on user-given video input.
 ![til](https://github.com/vivupadi/object_detection/blob/main/Data/obj_detect.jpg)
 ** Model accuracy is low. Cat being detected as a person :-) Model needs to be tuned further!! 
 
+# Future Plans
 
 ## Quantization
 
