@@ -6,6 +6,8 @@ A realtime frame-by-frame object detection on user-given video input.
 
 Using a small and fast model: ssd_mobilenet_v2
 
+## Model architecture
+
 
 ## Inference on CPU
 
