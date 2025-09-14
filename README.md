@@ -17,7 +17,7 @@ Using a small and fast model: ssd_mobilenet_v2
 
 ### Object detection on Image
 ![til](https://github.com/vivupadi/object_detection/blob/main/Data/obj_detect.jpg)
-** Model accuracy is low. Cat being detected as a person :-) Model needs to be tuned further!! 
+** Model is not fine-tuned! 
 
 # Future Plans
 
