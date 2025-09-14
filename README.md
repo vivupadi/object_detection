@@ -13,12 +13,19 @@ A three-channel image of variable size - the model does NOT support batching. Th
 The output dictionary contains:
 
   -- num_detections: a tf.int tensor with only one value, the number of detections [N].
+  
   -- detection_boxes: a tf.float32 tensor of shape [N, 4] containing bounding box coordinates in the following order: [ymin, xmin, ymax, xmax].
+  
   -- detection_classes: a tf.int tensor of shape [N] containing detection class index from the label file.
+  
   -- detection_scores: a tf.float32 tensor of shape [N] containing detection scores.
+  
   -- raw_detection_boxes: a tf.float32 tensor of shape [1, M, 4] containing decoded detection boxes without Non-Max suppression. M is the number of raw detections.
+  
   -- raw_detection_scores: a tf.float32 tensor of shape [1, M, 90] and contains class score logits for raw detection boxes. M is the number of raw detections.
+  
   -- detection_anchor_indices: a tf.float32 tensor of shape [N] and contains the anchor indices of the detections after NMS.
+  
   -- detection_multiclass_scores: a tf.float32 tensor of shape [1, N, 91] and contains class score distribution (including background) for detection boxes in the image including background class.
 
 Source:
