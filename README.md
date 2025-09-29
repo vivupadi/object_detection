@@ -54,3 +54,10 @@ Minimum Score Threshold: 55%
 
 
 ## Structure of Pipeline
+
+
+<div align="center">
+⭐ Star this repo if you find it helpful!
+  
+Made with ❤️ by Vivek Padayattil
+</div>
