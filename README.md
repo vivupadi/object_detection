@@ -1,6 +1,16 @@
 # Realtime Object detection on Videos
 A realtime frame-by-frame object detection on user-given video input.
 
+## 🛠️Tech Stack  
+-OpenCV
+
+-PyTorch
+
+-Tensorflow Lite
+
+-Python
+
+-**Version Control**: Git & GitHub
 
 ## Model Used
 
