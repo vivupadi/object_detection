@@ -41,6 +41,27 @@ The output dictionary contains:
 Source:
 https://www.kaggle.com/models/tensorflow/ssd-mobilenet-v2/tensorFlow2/ssd-mobilenet-v2
 
+## Installation on Local System
+### Clone the repository
+
+git clone https://github.com/vivupadi/object_detection.git
+
+cd object_detection/src
+
+### Create virtual environment
+
+python -m venv venv
+
+source venv/bin/activate # On Windows: venv\Scripts\activate
+
+### Install dependencies
+
+pip install -r requirements.txt
+
+### Run the Application
+
+python load_model.py
+
 ## Model architecture
 
 Minimum Score Threshold: 55%
