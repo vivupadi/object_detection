@@ -1,3 +1,5 @@
+![License](https://img.shields.io/badge/License-MIT-green.svg)
+
 # Realtime Object detection on Videos
 A realtime frame-by-frame object detection on user-given video input.
 
@@ -86,6 +88,9 @@ Minimum Score Threshold: 55%
 
 ## Structure of Pipeline
 
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 <div align="center">
 ⭐ Star this repo if you find it helpful!
