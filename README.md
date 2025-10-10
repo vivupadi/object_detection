@@ -1,3 +1,5 @@
+![License](https://img.shields.io/badge/License-MIT-green.svg)
+
 # Realtime Object detection on Videos
 A realtime frame-by-frame object detection on user-given video input.
 
