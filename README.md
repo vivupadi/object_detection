@@ -86,6 +86,9 @@ Minimum Score Threshold: 55%
 
 ## Structure of Pipeline
 
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 <div align="center">
 ⭐ Star this repo if you find it helpful!
