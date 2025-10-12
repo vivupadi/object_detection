@@ -5,7 +5,7 @@ import tensorflow_hub as hub
 
 import cv2
 import time
-
+import kagglehub
 
 from preprocess import *
 
@@ -26,8 +26,11 @@ filename = "C:\\Users\\Vivupadi\\Downloads\\PXL_20250802_072807827.mp4"
 #module_handle = "https://tfhub.dev/tensorflow/ssd_mobilenet_v2/2"
 #detector = hub.load(module_handle).signatures['serving_default']
 
-module_handle = "https://tfhub.dev/tensorflow/ssd_mobilenet_v2/fpnlite_320x320/1"
-detector = hub.load(module_handle)
+path = kagglehub.model_download("tensorflow/ssd-mobilenet-v2/tensorFlow2/fpnlite-320x320")
+detector = tf.keras.models.load_model(path)
+
+#module_handle = "https://tfhub.dev/tensorflow/ssd_mobilenet_v2/fpnlite_320x320/1"
+#detector = hub.load(module_handle)
 #########
 
 
@@ -78,7 +81,8 @@ def run_detector(detector, path):
 
 #Function to handle video input
 def preprocess_video_and_run_detector(filename):
-    video = cv2.VideoCapture(filename)
+    #video = cv2.VideoCapture(filename)
+    video = cv2.VideoCapture(0)
 
     while video.isOpened():
         ret, fFrame = video.read()
