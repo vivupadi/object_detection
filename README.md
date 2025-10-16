@@ -4,6 +4,8 @@
 A realtime frame-by-frame object detection on user-given video input.
 
 ## Detection Classes
+The model currently detects following 80 objects in the image/video.
+Labels of the objects can be seen here: [Labels](src/coco_label.txt)
 
 ## 🛠️Tech Stack  
 -OpenCV
