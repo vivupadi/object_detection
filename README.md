@@ -3,6 +3,8 @@
 # Realtime Object detection on Videos
 A realtime frame-by-frame object detection on user-given video input.
 
+## Detection Classes
+
 ## 🛠️Tech Stack  
 -OpenCV
 
